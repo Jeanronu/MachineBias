@@ -22,6 +22,9 @@ dic = read_data()  # Content the output of the other file with all defendants in
 
 
 def defendants_percent(r: str, o: str, s: str) -> float:
+    precondition(r == "b" or r == "w")
+    precondition(o == "n" or o == "y")
+    precondition(s == "Low" or s == "High")
 
     offend = []
     r_defendant = []

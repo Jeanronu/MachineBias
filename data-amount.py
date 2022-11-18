@@ -3,33 +3,36 @@ This file was for break down the problem. This file calculates the amount of pri
 it also has a user interface, is not in the assigment.
 
 >>> defendants_amount("b","n","Low")
-('The amount of', 'black defendants', 'who', 'did not', 'offend with a', 'Low', 'risk is: ', 990)
+('The amount of black defendants who did not offend with a Lowrisk is:', 990)
 
 >>> defendants_amount("","","")
-('The amount of', 'all defendants', 'who', 'did and did not', 'offend is:', 7214)
+('The amount of all defendants who did and did not offend is:', 7214)
 
 >>> defendants_amount("", "y", "")
-('The amount of', 'all defendants', 'who', 'did', 'offend is:', 3251)
+('The amount of all defendants who did offend is:', 3251)
 
 >>> defendants_amount("w","","Low")
-('The amount of', 'white defendants', 'who', 'did and did not', 'offend with a', 'Low', 'risk is: ', 1600)
+('The amount of white defendants who did and did not offend with a Lowrisk is:', 1600)
 
 >>> defendants_amount("b","y","")
-('The amount of', 'black defendants', 'who', 'did', 'offend is:', 1901)
+('The amount of black defendants who did offend is:', 1901)
 
 >>> defendants_amount("","y","High")
-('The amount of', 'all defendants', 'who', 'did', 'offend with a', 'High', 'risk is: ', 2035)
+('The amount of all defendants who did offend with a Highrisk is:', 2035)
 
 >>> defendants_amount("w","n","High")
-('The amount of', 'white defendants', 'who', 'did not', 'offend with a', 'High', 'risk is: ', 349)
+('The amount of white defendants who did not offend with a Highrisk is:', 349)
 
 >>> defendants_amount("w","n","Low")
-('The amount of', 'white defendants', 'who', 'did not', 'offend with a', 'Low', 'risk is: ', 1139)
+('The amount of white defendants who did not offend with a Lowrisk is:', 1139)
 
 """
 
 from read_data import read_data
 dic = read_data()  # Content the output of the other file with all defendants information
+
+
+""" insert if is white or black """
 
 
 def defendants_race():
@@ -40,6 +43,9 @@ def defendants_race():
             print("Sorry you have to answer w or b or leave it blank for all")
 
     return def_race
+
+
+""" insert if re-offend or not """
 
 
 def re_offend():
@@ -76,33 +82,33 @@ def defendants_amount(r: str, o: str, s: str) -> float:
     amount_defendant = []
 
     if r == "":
-        color = "all defendants"
+        color = "all defendants "
         r_defendant = dic
     elif r == "w":
-        color = "white defendants"
+        color = "white defendants "
         for white in dic:
             if white['race'] == "Caucasian":
                 r_defendant.append(white)
     else:
-        color = "black defendants"
+        color = "black defendants "
         for black in dic:
             if black['race'] == "African-American":
                 r_defendant.append(black)
     if o == "":
         offend = r_defendant
-        do = "did and did not"
+        do = "did and did not "
     elif o == 'y':
-        do = "did"
+        do = "did "
         for offended in r_defendant:
             if offended['two_year_recid'] != '0':
                 offend.append(offended)
     else:
-        do = "did not"
+        do = "did not "
         for offended in r_defendant:
             if offended['two_year_recid'] == '0':
                 offend.append(offended)
     if s == "":
-        return "The amount of", color, "who", do, "offend is:", len(offend)
+        return "The amount of " + color + "who " + do + "offend is:", len(offend)
     elif s == "Low":
         for defendant in offend:
             if defendant['score_text'] == s:
@@ -111,7 +117,7 @@ def defendants_amount(r: str, o: str, s: str) -> float:
         for defendant in offend:
             if defendant['score_text'] == s or defendant['score_text'] == "Medium":
                 amount_defendant.append(defendant)
-    return "The amount of", color, "who", do, "offend with a", s, "risk is: ", len(amount_defendant)
+    return "The amount of " + color + "who " + do + "offend with a " + s + "risk is:", len(amount_defendant)
 
 
 print(defendants_amount(defendants_race(), re_offend(), defendants_score()))
