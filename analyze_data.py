@@ -22,6 +22,13 @@ dic = read_data()  # Content the output of the other file with all defendants in
 
 
 def defendants_percent(r: str, o: str, s: str) -> float:
+    """
+
+    :param r: r is the variable that represent race
+    :param o: o is the variable that represent if the defendant re - offend or not
+    :param s: s is the variable that represent the score if High or Low
+    :return: the return is a float that represent the percentage
+    """
     precondition(r == "b" or r == "w")
     precondition(o == "n" or o == "y")
     precondition(s == "Low" or s == "High")
